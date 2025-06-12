@@ -10,9 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "com.example.jirakid")
 
 public class JiraKidApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(JiraKidApplication.class, args);
     }
-
 }
