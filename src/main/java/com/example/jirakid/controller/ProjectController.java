@@ -1,5 +1,9 @@
-package com.example.jirakid;
+package com.example.jirakid.controller;
 
+import com.example.jirakid.exception.ResourceNotFoundException;
+import com.example.jirakid.model.Project;
+import com.example.jirakid.dto.ProjectInfo;
+import com.example.jirakid.repository.ProjectRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +14,7 @@ import java.time.Instant;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/projects")
 class ProjectController {
     private final ProjectRepository projectRepository;
@@ -25,7 +30,7 @@ class ProjectController {
     @GetMapping("/{id}")
     ResponseEntity<Project> getProjectById(@PathVariable long id) {
         var project = projectRepository.findById(id)
-                .orElseThrow(()-> new ProjectNotFoundException("Project not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Project not found"));
 
         return ResponseEntity.ok(project);
     }
@@ -58,7 +63,7 @@ class ProjectController {
     @PutMapping("/{id}")
     ResponseEntity<Void> updateProject(@PathVariable long id, @RequestBody @Valid UpdateProjectPayload payload) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new ProjectNotFoundException("Project not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
         project.setTitle(payload.title());
         project.setOwner(payload.owner());
@@ -72,13 +77,8 @@ class ProjectController {
     @DeleteMapping("/{id}")
     void deleteProject(@PathVariable long id) {
         var project = projectRepository.findById(id)
-                .orElseThrow(() -> new ProjectNotFoundException("Project not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Project not found"));
 
-        projectRepository.delete((Project) project);
-    }
-
-    @ExceptionHandler(ProjectNotFoundException.class)
-    ResponseEntity<Void> handleProjectNotFound(ProjectNotFoundException e) {
-        return ResponseEntity.notFound().build();
+        projectRepository.delete(project);
     }
 }

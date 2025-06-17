@@ -1,4 +1,6 @@
-package com.example.jirakid;
+package com.example.jirakid.dto;
+
+import com.example.jirakid.model.Project;
 
 import java.time.Instant;
 

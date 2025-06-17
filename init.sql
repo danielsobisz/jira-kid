@@ -1,4 +1,6 @@
 create sequence project_id_seq start with 1 increment by 50;
+create sequence task_id_seq start with 1 increment by 50;
+create type task_status as ENUM ('TO_DO', 'IN_PROGRESS', 'DONE');
 
 create table projects
 (
@@ -9,6 +11,19 @@ create table projects
     updated_at timestamp,
     primary key (id)
 );
+
+create table tasks
+    (
+        id      bigint not null default nextval('task_id_seq'),
+        project_id bigint not null,
+        title   varchar(200) not null,
+        description varchar(100) not null,
+        assignee varchar(200) not null,
+        created_at timestamp not null default now(),
+        updated_at timestamp,
+        status task_status NOT NULL DEFAULT "TO_DO",
+        primary key (id)
+)
 
 insert into projects(title, owner, created_at) values
 ('E-commerce Platform', 'John Smith', '2021-06-26'),

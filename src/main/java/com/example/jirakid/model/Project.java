@@ -1,4 +1,4 @@
-package com.example.jirakid;
+package com.example.jirakid.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -33,6 +35,9 @@ public class Project {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -74,4 +79,7 @@ public class Project {
         this.updatedAt = updatedAt;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
 }
