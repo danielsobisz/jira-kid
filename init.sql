@@ -17,7 +17,7 @@ create table tasks
         id      bigint not null default nextval('task_id_seq'),
         project_id bigint not null,
         title   varchar(200) not null,
-        description varchar(100) not null,
+        description TEXT not null,
         assignee varchar(200) not null,
         created_at timestamp not null default now(),
         updated_at timestamp,

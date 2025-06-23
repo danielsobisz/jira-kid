@@ -27,9 +27,9 @@ public class Task {
     @Column(name = "title", nullable = false, length = 200)
     private String title;
 
-    @Size(max = 200)
+    @Lob
     @NotNull
-    @Column(name = "description", nullable = false, length = 200)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @Size(max = 100)

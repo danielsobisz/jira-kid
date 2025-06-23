@@ -24,7 +24,7 @@ public class TaskController {
     }
 
     @PostMapping("/project/{project_id}")
-    public ResponseEntity<?> createTask(@RequestBody Task task, @PathVariable Long project_id) {
+    public ResponseEntity<Task> createTask(@RequestBody Task task, @PathVariable Long project_id) {
         Optional<Project> projectOpt = projectRepository.findById(project_id);
 
         if (projectOpt.isEmpty()) {
