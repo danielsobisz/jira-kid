@@ -14,7 +14,6 @@ import java.time.Instant;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/projects")
 class ProjectController {
     private final ProjectRepository projectRepository;
